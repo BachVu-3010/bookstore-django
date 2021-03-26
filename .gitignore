@@ -1,0 +1,17 @@
+venv/
+__pycache__
+*.pyc
+
+.env
+.coveralls.yml
+.coverage
+test_dot_env.py
+test_foo.py
+
+# Text backup files
+*.bak
+
+# Database
+*.sqlite3
+
+

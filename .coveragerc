@@ -1,0 +1,6 @@
+[run]
+ branch = True
+ source = .
+ omit =
+  bookstore/asgi.py
+  bookstore/wsgi.py

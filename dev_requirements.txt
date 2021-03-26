@@ -1,0 +1,7 @@
+-r requirements.txt
+
+coverage==5.4
+coveralls==3.0.0
+pytest==6.2.2
+pytest-django==4.1.0
+

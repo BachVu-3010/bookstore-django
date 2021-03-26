@@ -1,0 +1,127 @@
+GET http://127.0.0.1:8000/api/v1/books/ HTTP/1.1
+
+### Creating a JWT - Signin
+POST http://127.0.0.1:8000/api/v1/users/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bach.x.vu09@gmail.com",
+    "password": "123456"
+}
+
+### Creating a JWT - Signin with admin email and password
+POST http://127.0.0.1:8000/api/v1/users/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bach@eastagile.com",
+    "password": "12345666"
+}
+
+### Reset password
+POST http://127.0.0.1:8000/api/v1/users/password/reset/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bach.x.vu09@gmail.com"
+}
+
+### Update new_password
+POST http://127.0.0.1:8000/api/v1/users/password/reset/verified/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "password": "123456",
+    "code": "ac09fbf2fc0568804508b6fbe7783d78b3001ddb"
+}
+
+
+### Register a user
+POST http://127.0.0.1:8000/api/v1/users/register/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bach.x.vu09@gmail.com",
+    "password": "123456",
+    "fullname": "user4",
+    "birthday": "2021-02-17",    
+    "phone": "111-333-555"
+}
+
+### Retrieve user profile providing bearer token
+GET http://127.0.0.1:8000/api/v1/users/profile/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0NjYyMTUzLCJqdGkiOiJjZTVjZTY2M2UxZmI0ZTZmOGQ4Y2JjY2NkNTQ5YjA4ZSIsInVzZXJfaWQiOjF9.gX0_qGNgPThuQd1kbCL_4lJY4YZhg2viL8fIZwtN-8c
+
+
+### Retrieve user profile providing bearer token - another user
+GET http://127.0.0.1:8000/api/v1/users/profile/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0NjYyMTk1LCJqdGkiOiI3ODE2N2JiNGU0ZTY0NTFiYjRkNGVmOTdmYTJjZmIzNSIsInVzZXJfaWQiOjV9.dzeoCg0Fi8tu30rkoDU5Gc2SpQ_cLnkuQaGPl1RRNy4
+
+### Update user profile
+PUT http://127.0.0.1:8000/api/v1/users/profile/update/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE0Njc0OTgyLCJqdGkiOiJkNDJlNGY3ZjkyY2E0ZjMxYjRjOWE0YzBhMzcyZDQ1ZSIsInVzZXJfaWQiOjF9.Cb1cGI2tU7YIrN7s9uFE58VNAQU97ZApkPNB4jepd0o
+
+{   
+
+    "email": "bach@eastagile.com",
+    "password": "12345666",
+    "fullname": "bachvu",
+    "birthday": "1987-11-09",    
+    "phone": "888-888-8888"
+}
+
+### Creating a JWT - Signin then Post a comment
+POST http://127.0.0.1:8000/api/v1/users/login/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "bach@eastagile.com",
+    "password": "12345666"
+}
+
+### Post a comment
+POST http://127.0.0.1:8000/api/v1/books/8/reviews/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2MDU5ODYwLCJqdGkiOiJiMmQ5NTZjZjRhZWQ0ODlmODYwNjVlNzljNTJiZDgzYSIsInVzZXJfaWQiOjU1fQ.DtulTp347DDm25NYiNf0hOjmh1Vy_sGcctXmirHGdKU
+
+{   
+
+    "rating": 5,
+    "comment": "Must read can not miss"
+
+}
+
+### Post a comment
+GET http://127.0.0.1:8000/api/v1/books/1/reviews/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE1NTQwODc3LCJqdGkiOiI2NzM5MThiNGZkZTc0MjYwYTE0NDliZWY0N2YwNThiYyIsInVzZXJfaWQiOjF9.lCgnuyHt80AdxI7WCwwgehCd-ZGVl9Zlxx910HeW8jQ
+
+
+### Create an order
+POST http://127.0.0.1:8000/api/v1/orders/create/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2Mzk3OTMyLCJqdGkiOiIzNTYxY2ZjNmY3MmY0MTlmODJkZDE4Y2IyNDNjNTc0NCIsInVzZXJfaWQiOjU1fQ.6ppvLuzXa9YHXldH14xdWOAkWGNJJMq8oRhqulyt8MY
+
+{   
+    "orderItems": [{"id":5, "qty":3}, {"id":3, "qty":2}],
+    "paymentMethod": "Visa Card",
+    "taxPrice": 3.00,
+    "shippingPrice": 1.50,
+    "totalPrice": 333.33,
+    "paymentMethod": "Visa",
+    "shippingAddress": {"address": "400 N River Road", "district": "Launch", "city": "West Lafayette", "country": "USA"}
+}
+
+### View an order
+GET http://127.0.0.1:8000/api/v1/orders/21/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NDAzOTQ4LCJqdGkiOiIzM2Q1MTUzMTc4MGM0MzY3YTA0YTYxMDc2NjRlZDMyYSIsInVzZXJfaWQiOjU1fQ.dBT46czPZflu6nNhU-zGeaq4ThGUERp9vR00AZPEnCc
+
+
+### Admin view all users
+GET http://127.0.0.1:8000/api/v1/users/ HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjE2NTUzMjkyLCJqdGkiOiI4ZTcyNjJmMWI4NzY0NDkyYjE4YzAwM2ZkNDc4MzIwZCIsInVzZXJfaWQiOjU1fQ.fquMTaekFs8K-AsxwBJ55UU7aTixI7Y4G9ObcdhXzV0

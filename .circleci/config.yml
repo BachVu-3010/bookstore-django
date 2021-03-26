@@ -1,0 +1,54 @@
+# .circleci/config.yml
+# Pipeline --> Workflows --> Jobs --> Steps
+
+version: 2.0
+jobs:
+  test:
+    docker:
+      - image: circleci/python:3.6
+    working_directory: ~/bookstore
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "dev_requirements.txt" }}
+      - run:
+          command: |
+            pip3 install -r dev_requirements.txt
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "dev_requirements.txt" }}
+          paths:
+            - /foo
+      - run:
+          name: Running tests
+          command: |
+            python3 manage.py test
+      - run:
+          name: Running coverage and coveralls
+          command: |
+            coverage erase
+            coverage run --source=bookstore manage.py test
+            coveralls
+      - store_artifacts:
+          path: test-reports/
+          destination: python_app
+
+  deploy:
+    docker:
+      - image: circleci/python:3.6
+    working_directory: ~/bookstore
+    steps:
+      - checkout
+      - run:
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git feature/365-setup-book-api:main -f
+workflows:
+  version: 2
+  test-and-deploy:
+    jobs:
+      - test
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: feature/365-setup-book-api
